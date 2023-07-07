@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import MyListItem from "./MyListItem.vue";
+import MyListItem from "./MyListItem";
 
 export default {
   name: "MyList",
