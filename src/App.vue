@@ -49,6 +49,13 @@ export default {
     removeTodo(id) {
       this.todos = this.todos.filter((t) => t.id !== id);
     },
+    updateTodo(id, title) {
+      this.todos.forEach((todo) => {
+        if (todo.id === id) {
+          todo.title = title;
+        }
+      });
+    },
     checkAllTodo(done) {
       this.todos.forEach((todo) => {
         todo.done = done;
@@ -65,6 +72,13 @@ export default {
         localStorage.setItem("todos", JSON.stringify(value));
       },
     },
+  },
+  // 使用事件总线进行方法的调用，将要全局调用的方法放到$bus中
+  mounted() {
+    this.$bus.$on("updateTodo", this.updateTodo);
+  },
+  beforeDestroy() {
+    this.$bus.$off("updateTodo");
   },
 };
 </script>
@@ -98,6 +112,13 @@ body {
 .btn-danger:hover {
   color: #fff;
   background-color: #bd362f;
+}
+
+.btn-edit {
+  color: #fff;
+  background-color: skyblue;
+  border: 1px solid #6eade7;
+  margin-right: 5px;
 }
 
 .btn:focus {
